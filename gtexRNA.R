@@ -7,9 +7,9 @@ gtex <- read_delim("gtex_reads.gct",
 
 udp714051 <- read_delim("quants/714051_quant/quant.sf",
                         delim = '\t', col_names = T) %>%
-    select(Name, TPM) %>%
-    rename(TPM = udp714051) %>%
-    rename(Name = gene_name)
+    select(Name, TPM)
+colnames(udp714051$Name) <- "gene_name"
+colnames(udp714051$TPM) <- "udp714051"
 
 gtex2 <- gtex %>% 
     rowwise() %>%
