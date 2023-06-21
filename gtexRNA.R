@@ -1,7 +1,5 @@
 library(tidyverse)
 
-print("Running gtexRNA.R")
-
 gtex <- read_delim("/Shared/lss_chndr/UDP- Research/RNAseq data/gtex_reads.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
     select(-id) %>%
