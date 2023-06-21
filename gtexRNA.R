@@ -2,7 +2,6 @@ library(tidyverse)
 
 gtex <- read_delim("gtex_reads.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
-    select(-id) %>%
     rename(gene_name = Name)
 
 
