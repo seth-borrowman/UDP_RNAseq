@@ -1,0 +1,12 @@
+#!/bin/bash
+
+module load stack/2022.2
+module load salmon
+
+for f in 715991 731949 731952 731956
+do
+salmon quant -i ~/salmonindex/GRCh38_index -l A \
+       	-1 ~/RNAseqDownloads/ConcatenatedFiles/${f}_R1.fastq.gz \
+       	-2 ~/RNAseqDownloads/ConcatenatedFiles/${f}_R2.fastq.gz \
+       	-p 8 --validateMappings -o quants/${f}_quant
+done
