@@ -1,12 +1,12 @@
 library(tidyverse)
 
-gtex <- read_delim("/Shared/lss_chndr/UDP- Research/RNAseq data/gtex_reads.gct",
+gtex <- read_delim("gtex_reads.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
     select(-id) %>%
     rename(gene_name = Name)
 
 
-udp714051 <- read_delim("/Shared/lss_chndr/UDP- Research/RNAseq data/quants/714051_quant/quant.sf",
+udp714051 <- read_delim("quants/714051_quant/quant.sf",
                         delim = '\t', col_names = T) %>%
     select(Name, TPM) %>%
     rename(TPM = udp714051) %>%
@@ -44,7 +44,7 @@ scatter_714051 <- ggplot2::ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051
                     box.padding=.15,
                     min.segment.length = unit(0.15, 'lines'),size=2.5)
 
-png(file = "/Shared/lss_chndr/UDP- Research/RNAseq data/scatterplot.png", width = 1080, height = 1080)
+png(file = "scatterplot.png", width = 1080, height = 1080)
 scatter_714051
 dev.off()
 
@@ -58,6 +58,6 @@ barplot_714051 <- ggbarplot(sig_714051, x='gene_name', y='pb714051_delta',
                             rotate = TRUE,
                             ggtheme = theme_minimal())
 
-png(file = "/Shared/lss_chndr/UDP- Research/RNAseq data/barplot", width = 1080, height = 1080)
+png(file = "barplot", width = 1080, height = 1080)
 barplot_714051
 dev.off()
