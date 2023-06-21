@@ -1,0 +1,9 @@
+#! /bin/bash
+
+module load stack/2022.2
+module load r
+module load r-tidyverse
+
+Rscript /Shared/lss_chndr/UDP-\ Research/RNAseq\ data/gtexRNA.R
+
+done
