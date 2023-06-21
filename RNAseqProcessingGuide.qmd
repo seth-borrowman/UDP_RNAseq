@@ -97,12 +97,13 @@ This assumes you have four samples with two files each. For example you have Sam
 Once you have that saved:
 1. In your home directory in Argon (`cd ~`), create a new directory called quants (`mkdir quants`)
 2. Navigate to the LSS (`cd /Shared/lss_chndr`).
-3. `qsub myscript.job`
+3. `sed -i 's/\r$//' myscript.job`
+4. `qsub myscript.job`
     i) This will run the script you created. Be sure to edit the command based on what you named your .job file.
-4. `cd ~`
-5. `ls`
+5. `cd ~`
+6. `ls`
     i) If the job has started (it may take a minute), you should see a file similar to myjob.job.e###
-6. `cat myjob.job.e###`
+7. `cat myjob.job.e###`
     i) This is where the system messages related to the job will appear. If there are error codes, they will appear here and any log that Salmon creates will appear here as well.
     
 Now it is a waiting game - Salmon seems to take at least 30 minutes per sample. Since we submitted this as a job, Argon can be closed and returned to later.
