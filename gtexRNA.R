@@ -51,7 +51,7 @@ scatter_714051 <- ggplot2::ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051
                     point.padding = 0.15, 
                     segment.alpha = 1, 
                     box.padding=.15,
-                    min.segment.length = unit(0.15, 'lines'),size=2.5)
+                    min.segment.length = unit(0.15, 'lines'))
 
 png(file = "scatterplot.png", width = 1080, height = 1080)
 scatter_714051
