@@ -4,6 +4,7 @@ module load stack/2022.2
 module load r
 module load r-tidyverse
 module load r-ggrepel
+module load r-ggpubr
 
 Rscript /Shared/lss_chndr/UDP-\ Research/RNAseq\ data/gtexRNA.R
 

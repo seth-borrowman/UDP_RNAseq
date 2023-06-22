@@ -1,5 +1,6 @@
 library(tidyverse)
 library(ggrepel)
+library(ggpubr)
 
 gtex <- read_delim("TPMgtex.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
