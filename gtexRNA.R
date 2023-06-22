@@ -4,16 +4,21 @@ gtex <- read_delim("gtex_reads.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
     rename(gene_name = Name)
 
+print("gtex loaded")
 
 udp714051 <- read_delim("quants/714051_quant/quant.sf",
                         delim = '\t', col_names = T) %>%
     select(Name, TPM)
 colnames(udp714051) <- c("gene_name", "udp714051")
 
+print("Participant info loaded")
+
 gtex2 <- gtex %>% 
     rowwise() %>%
     mutate(mean_tpm = mean(c_across(3:757))) %>%
     mutate(sd_tpm = sd(c_across(3:757)))
+
+print("Means and sd calculated")
 
 gtex_means <- gtex2 %>% select(c(Name, gene_name, mean_tpm, sd_tpm)) %>%
     left_join(., udp714051, by="gene_name") %>%
@@ -23,7 +28,11 @@ gtex_means <- gtex2 %>% select(c(Name, gene_name, mean_tpm, sd_tpm)) %>%
     filter(mean_tpm > 0.1) %>%
     filter(udp714051 > 0.1)
 
+print("Deltas calculated")
+
 sig_714051 <- gtex_means %>% filter(abs(udp714051_delta) > 1500)
+
+print("Filtered reads")
 
 scatter_714051 <- ggplot2::ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051, label = gene_name)) + 
     geom_point(size=0.6, color="darkgray", alpha=0.8) + 
