@@ -37,7 +37,7 @@ sig_714051 <- gtex_means %>% filter(abs(udp714051_delta) > 1500)
 
 print("Filtered reads")
 
-scatter_714051 <- ggplot2::ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051, label = Description)) + 
+scatter_714051 <- ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051, label = Description)) + 
     geom_point(size=0.6, color="darkgray", alpha=0.8) + 
     geom_point(data = sig_714051, aes(x=mean_tpm, y=udp714051), size=0.8, color="red", alpha=.9 ) +
     geom_smooth(method = "lm") + 
