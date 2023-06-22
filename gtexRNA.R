@@ -1,8 +1,9 @@
 library(tidyverse)
 
-gtex <- read_delim("gtex_reads.gct",
+gtex <- read_delim("TPMgtex.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
-    rename(gene_name = Name)
+    rename(gene_name = Name) %>%
+    select(-id)
 
 print("gtex loaded")
 
@@ -15,8 +16,8 @@ print("Participant info loaded")
 
 gtex2 <- gtex %>% 
     rowwise() %>%
-    mutate(mean_tpm = mean(c_across(3:757))) %>%
-    mutate(sd_tpm = sd(c_across(3:757)))
+    mutate(mean_tpm = mean(c_across(3:ncol(.)))) %>%
+    mutate(sd_tpm = sd(c_across(3:ncol(.))))
 
 print("Means and sd calculated")
 
