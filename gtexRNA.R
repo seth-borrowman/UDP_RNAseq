@@ -21,7 +21,7 @@ gtex2 <- gtex %>%
 
 print("Means and sd calculated")
 
-gtex_means <- gtex2 %>% select(c(Name, gene_name, mean_tpm, sd_tpm)) %>%
+gtex_means <- gtex2 %>% select(c(Description, gene_name, mean_tpm, sd_tpm)) %>%
     left_join(., udp714051, by="gene_name") %>%
     na.omit() %>%
     mutate(udp714051_delta = (udp714051 - mean_tpm)) %>% #calculate deltas
@@ -35,7 +35,7 @@ sig_714051 <- gtex_means %>% filter(abs(udp714051_delta) > 1500)
 
 print("Filtered reads")
 
-scatter_714051 <- ggplot2::ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051, label = gene_name)) + 
+scatter_714051 <- ggplot2::ggplot(data = gtex_means, aes(x=mean_tpm, y=udp714051, label = Description)) + 
     geom_point(size=0.6, color="darkgray", alpha=0.8) + 
     geom_point(data = sig_714051, aes(x=mean_tpm, y=udp714051), size=0.8, color="red", alpha=.9 ) +
     geom_smooth(method = "lm") + 
@@ -56,7 +56,7 @@ png(file = "scatterplot.png", width = 1080, height = 1080)
 scatter_714051
 dev.off()
 
-barplot_714051 <- ggbarplot(sig_714051, x='gene_name', y='pb714051_delta', 
+barplot_714051 <- ggbarplot(sig_714051, x='Description', y='pb714051_delta', 
                             sort.val='asc', 
                             sort.by.groups = FALSE, 
                             x.text.angle=90,
