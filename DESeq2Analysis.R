@@ -2,6 +2,7 @@ library(tximeta)
 library(DESeq2)
 library(magrittr)
 library(apeglm)
+library(vsn)
 
 # Set wd
 setwd("Z:/UDP- Research/RNAseq data")
@@ -26,11 +27,19 @@ se <- tximeta(coldata51)
 ddsTxi <- DESeqDataSet(se, design = ~ treat)
 
 # DE analysis
-keep <- rowSums(counts(ddsTxi)) >= 10 # Filter low count genes
-ddsTxi <- ddsTxi[keep, ]
+#keep <- rowSums(counts(ddsTxi)) >= 10 # Filter low count genes
+#ddsTxi <- ddsTxi[keep, ]
 dds <- DESeq(ddsTxi)
+
+vsd <- vst(dds, blind=FALSE)
+rld <- rlog(dds, blind=FALSE)
+ntd <- normTransform(dds)
+meanSdPlot(assay(ntd))
+meanSdPlot(assay(vsd))
+meanSdPlot(assay(rld))
+
 resLFC <- lfcShrink(dds, coef = "treat_control_vs_case", type = "apeglm")
 
-plotMA(resLFC)
-
-
+plotMA(resLFC, ylim = c(-5, 5))
+results <- results(dds)
+results
