@@ -46,26 +46,26 @@ Note that LSS drives are accessible outside of Argon by mapping them to your com
 You will receive an email from IIHG with a link to your data. In Argon, navigate to a directory in which you would like to work.
 
 1. `mkdir Downloads`
-    i) This creates a new directory (folder) to put our downloaded data in.
+    - This creates a new directory (folder) to put our downloaded data in.
 2. `cd Downloads`
-    i) Move into that new directory.
+    - Move into that new directory.
 3. `wget -r -np {link}`
-    i) Paste your link from IIHG in place of {link}. This will begin to download all of the sample data from the link.
+    - Paste your link from IIHG in place of {link}. This will begin to download all of the sample data from the link.
 4. `cat Lane1/SampleName_R1.fastq.gz Lane2/SampleName_R1.fastq.gz > SampleName_R1.fastq.gz`
-    i) Concatenate the fastq files from lane 1 and lane 2. Match based on sample name and replicate number. Save those as a new file that has the sample name and replicate number.
+    - Concatenate the fastq files from lane 1 and lane 2. Match based on sample name and replicate number. Save those as a new file that has the sample name and replicate number.
 
 ## Create an index
 
 This will use Salmon. The guide for Salmon can be found [here](https://combine-lab.github.io/salmon/getting_started/). Files will be generated from this, so you may want to move to a useful directory or make a new one and move into it.
 
 1. `module load stack/2022.2`
-    i) This is necessary for the next step to work correctly.
+    - This is necessary for the next step to work correctly.
 2. `module load salmon`
-    i) Salmon is already available on Argon; we simply need to load it to make it available for use.
+    - Salmon is already available on Argon; we simply need to load it to make it available for use.
 3. `curl https://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz -o GRCh38_cdna.fa.gz`
-    i) This downloads a cDNA reference from Ensembl. The link may need to be updated in the future.
+    - This downloads a cDNA reference from Ensembl. The link may need to be updated in the future.
 4. `salmon index -t GRCh38_cdna.fa.gz -i GRCh38_index`
-    i) This creates an index called GRCh38_index to map RNA-seq reads to for quantification.
+    - This creates an index called GRCh38_index to map RNA-seq reads to for quantification.
 
 ## Quantify Samples
 
