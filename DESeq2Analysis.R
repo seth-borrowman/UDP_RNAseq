@@ -10,9 +10,13 @@ library(ggrepel)
 setwd("Z:/UDP- Research/RNAseq data")
 
 # Load data
-coldata <- as.data.frame(matrix(nrow = 6, ncol = 2))
+coldata <- as.data.frame(matrix(nrow = 12, ncol = 2))
 colnames(coldata) <- c("names", "files")
-coldata[,1] <- c("731952", "744230", "744241")
+coldata[,1] <- c("UIRDB20230008",
+                 "UIRDB20230003", "UIRDB20230005", "UIRDB20230006",
+                 "UIRDB20230007", "UIRDB20230009", "UIRDB20230009-A",
+                 "UIRDB20230009-B", 'UIRDB20230013', "UIRDB20230015",
+                 "UIRDB20230016","UIRDB20230018")
 for (i in seq_along(1:length(coldata[,1]))) {
     coldata[i, 2] <- file.path("quants",
                                paste(coldata[i, 1], "_quant", sep = ""),
@@ -20,12 +24,11 @@ for (i in seq_along(1:length(coldata[,1]))) {
 }
 
 ### 731952 as outgroup
-coldata51 <- coldata
-coldata51$treat <- c("case", "control")
-coldata51$treat %>%
+coldata$treat <- c("case", rep("control", nrow(coldata) - 1))
+coldata$treat %>%
     factor() %>%
     relevel(ref = "control")
-se <- tximeta(coldata51)
+se <- tximeta(coldata)
 ddsTxi <- DESeqDataSet(se, design = ~ treat)
 
 # DE analysis
