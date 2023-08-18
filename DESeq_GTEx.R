@@ -82,9 +82,10 @@ for (i in participants) {
             .default = 0
         ))
     resultsDF$sig <- factor(resultsDF$sig, ordered = is.ordered(c(0, 1)))
-    write_csv(paste("DE/", i, ".csv", sep = ""))
+    write_csv(resultsDF, paste("DE/", i, ".csv", sep = ""))
 
     # Plot
+    options(ggrepel.max.overlaps = Inf)
     png(filename = paste("DE/", i, "_volcano.png", sep = ""), ,
         width = 1400, height = 800)
     ggplot(data = resultsDF, aes(x = log2FoldChange, y = -log(pvalue), color = sig)) +
@@ -93,7 +94,7 @@ for (i in participants) {
         geom_hline(yintercept = -log(0.05/nrow(resultsDF)), color = "lightblue") +
         scale_color_manual(values = c("grey", "red")) +
         theme_minimal() +
-        geom_label_repel(data = resultsDF %>%
+        geom_text_repel(data = resultsDF %>%
                             filter(sig == 1),
             aes(label = hgnc_symbol)) +
         theme(legend.position = "none") +
