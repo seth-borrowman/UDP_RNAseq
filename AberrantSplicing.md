@@ -8,6 +8,7 @@ To begin, we must create an index to align RNAseq data to. If you have used Salm
 ### Download necessary files
 You will first need to download a fasta (or fa) and GTF file of the human genome. There are multiple sources for this; I've used the GENCODE primary assembly found [here](https://www.gencodegenes.org/human/).
 This can be downloaded directly through the HPC using the `curl` command.
+Star requires that the files not be compressed. It's likely they were downloaded in .gz format. This can be decompressed with `gzip -d filename`.
 ### qlogin
 I've found that the memory required for the next operations is too much to be run normally. I've had multiple qsub jobs crash while running, but have found luck with qlogin. Before beginning to run STAR, simply enter the command `qlogin`.
 ### Star indexing
