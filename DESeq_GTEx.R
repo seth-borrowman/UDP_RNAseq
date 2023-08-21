@@ -86,8 +86,6 @@ for (i in participants) {
 
     # Plot
     options(ggrepel.max.overlaps = Inf)
-    png(filename = paste("DE/", i, "_volcano.png", sep = ""), ,
-        width = 1400, height = 800)
     ggplot(data = resultsDF, aes(x = log2FoldChange, y = -log(pvalue), color = sig)) +
         geom_point(show.legend = F) +
         #geom_vline(xintercept = c(-2, 2), color = "pink") +
@@ -99,5 +97,6 @@ for (i in participants) {
             aes(label = hgnc_symbol)) +
         theme(legend.position = "none") +
         ggtitle(i)
-    dev.off()
+
+    ggsave(paste("DE/", i, "_volcano.png", sep = ""), bg = "white")
 }
