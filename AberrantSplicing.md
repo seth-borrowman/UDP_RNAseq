@@ -42,13 +42,13 @@ Once you have the index made, you need to align your RNAseq reads to it to creat
 ```
 STAR --runThreadN 8 \
 --genomeDir /Shared/lss_chndr/UDP_Research/RNAseq/Indices/StarIndex \
---readFilesIn UIRDB20230003_R1.fastq.gz,UIRDB20230005_R1.fastq.gz UIRDB20230003_R2.fastq.gz,UIRDB20230005_R2.fastq.gz \
+--readFilesIn UIRDB20230003_R1.fastq.gz UIRDB20230003_R2.fastq.gz \
 --readFilesCommand "gzip -d" \
---outSAMattrRGline ID:UIRDB20230003 , ID:UIRDB20230005 \
+--outSAMattrRGline ID:UIRDB20230003 \
 --outSAMtype BAM SortedByCoordinate
 ```
 - genomeDir is the path to the directory where you stored your index files previously.
 - readFilesIn Is the paths/names of the fastq files to read in. In this example, we have two paired-end reads.
 - readFilesCommand is necessary if the fastq files are compressed. It specifies the command Star should use to decompress the files.
-- outSAMattrRGline is the IDs for each of the samples. Note that these should be separated by " , ".
+- outSAMattrRGline is the IDs for each the sample.
 - outSAMtype specifies the output file type. For future steps, we need a BAM file. I've specified here for the BAM file to be sorted.
