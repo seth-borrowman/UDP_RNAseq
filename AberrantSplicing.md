@@ -25,9 +25,30 @@ STAR --runMode genomeGenerate \
 --sjdbOverhang 99 \
 --genomeSAsparseD 2
 ```
+- runThreadN is the number of parallel threads to use.
 - genomeDir is whichever directory you want the output files to be saved in.
 - genomeFastaFiles is the name/location of the fasta file you've downloaded.
 - sjdbGTFfile is the name/location of the GTF file you've downloaded.
 - sjdbOverhang is the read length from RNAseq - 1. Assume 99 is correct if you do not know the read length.
 
 You will know the indexing has completed successfully when it outputs "finished successfully". For me, this took ~30 minutes. Depending on the RAM used and number of threads available (runThreadN), it is possible it could take much longer.
+
+## Align your reads to the index
+Once you have the index made, you need to align your RNAseq reads to it to create a BAM file. The process to do this is very similar to creating the index.
+1. Use `qlogin` to start a session.
+2. Navigate to where you want the BAM files to be output.
+3. Load Star with `module load star`.
+4. Generate BAM files using the following code:
+```
+STAR --runThreadN 8 \
+--genomeDir /Shared/lss_chndr/UDP_Research/RNAseq/Indices/StarIndex \
+--readFilesIn UIRDB20230003_R1.fastq.gz,UIRDB20230005_R1.fastq.gz UIRDB20230003_R2.fastq.gz,UIRDB20230005_R2.fastq.gz \
+--readFilesCommand "gzip -d" \
+--outSAMattrRGline ID:UIRDB20230003 , ID:UIRDB20230005 \
+--outSAMtype BAM SortedByCoordinate
+```
+- genomeDir is the path to the directory where you stored your index files previously.
+- readFilesIn Is the paths/names of the fastq files to read in. In this example, we have two paired-end reads.
+- readFilesCommand is necessary if the fastq files are compressed. It specifies the command Star should use to decompress the files.
+- outSAMattrRGline is the IDs for each of the samples. Note that these should be separated by " , ".
+- outSAMtype specifies the output file type. For future steps, we need a BAM file. I've specified here for the BAM file to be sorted.
