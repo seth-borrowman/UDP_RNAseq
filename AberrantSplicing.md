@@ -56,5 +56,5 @@ STAR --runThreadN 8 \
 ## Create BAM index files
 Many tools also require an individual BAM index file (.bai) for each BAM file. This can be done very easily in Argon using samtools.
 1. `module load samtools`
-2. `parallel  samtools index ::: *.bam`
+2. `parallel samtools index ::: *.bam`
 This will create a .bai file for each BAM file in your current folder.
