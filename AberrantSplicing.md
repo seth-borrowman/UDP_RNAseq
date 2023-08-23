@@ -52,3 +52,9 @@ STAR --runThreadN 8 \
 - readFilesCommand is necessary if the fastq files are compressed. It specifies the command Star should use to decompress the files.
 - outSAMattrRGline is the IDs for each the sample.
 - outSAMtype specifies the output file type. For future steps, we need a BAM file. I've specified here for the BAM file to be sorted.
+
+## Create BAM index files
+Many tools also require an individual BAM index file (.bai) for each BAM file. This can be done very easily in Argon using samtools.
+1. `module load samtools`
+2. `parallel  samtools index ::: *.bam`
+This will create a .bai file for each BAM file in your current folder.
