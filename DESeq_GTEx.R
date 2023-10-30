@@ -7,13 +7,13 @@ library(ggrepel)
 library(tximport)
 
 # Set wd
-setwd("Z:/UDP- Research/RNAseq data")
+setwd("Z:/UDP_Research/RNAseq")
 ifelse(!dir.exists('DE'), dir.create('DE'), FALSE)
 
 # Import GTEx controls
 gtex <- read_delim("Readsgtex.gct",
                    delim = '\t', col_names = T, skip = 2) %>%
-    rename(gene_name = Name) %>%
+    dplyr::rename(gene_name = Name) %>%
     dplyr::select(-c(id, Description))
 
 mart <- useEnsembl(biomart = "ensembl", dataset = "hsapiens_gene_ensembl")
@@ -30,7 +30,7 @@ for (i in participants) {
                      txOut = T) %>%
         as.data.frame() %>%
         rownames_to_column() %>%
-        rename(ensembl_transcript_id_version = rowname, NumReads = counts)
+        dplyr::rename(ensembl_transcript_id_version = rowname, NumReads = counts)
     
     geneNames <- getBM(filters = "ensembl_transcript_id_version",
                        attributes = c("ensembl_transcript_id_version",
